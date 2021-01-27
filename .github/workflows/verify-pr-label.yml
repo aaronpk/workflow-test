@@ -1,13 +1,13 @@
 name: verify-pr-label
 on:
-  pull_request_target:
+  pull_request:
     types: [opened, labeled, unlabeled, synchronize]
 jobs:
-  verify-pr-label:
+  label:
     runs-on: ubuntu-latest
     steps:
-    - uses: jesusvasquez333/verify-pr-label-action@v1.3.1
-      with:
-          github-token: '${{ secrets.GITHUB_TOKEN }}'
-          valid-labels: 'Pending Merge, Editorial'
-          pull-request-number: '${{ github.event.pull_request.number }}'
+      - uses: mheap/github-action-required-labels@v1
+        with:
+          mode: exactly
+          count: 1
+          labels: "Pending Merge, Editorial"
